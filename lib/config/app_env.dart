@@ -8,5 +8,5 @@ abstract interface class AppEnv implements AppEnvFields {
   factory AppEnv() => _instance;
 
   static final AppEnv _instance =
-      kDevEnv ? const DevEnv() : (kStgEnv ? const StgEnv() : const ProdEnv());
+      kDevEnv ?  const DevEnv() : (kStgEnv ?  const StgEnv() :  const ProdEnv());
 }
