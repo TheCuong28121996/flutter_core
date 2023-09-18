@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:base_project/common/commons.dart';
-import 'package:base_project/common/resource/res.dart';
+import 'package:base_project/res/res.dart';
 import 'package:dio/dio.dart';
 
 class BaseResponse<T> {

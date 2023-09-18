@@ -1,6 +1,7 @@
 import 'package:base_project/res/res.dart';
 import 'package:base_project/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:base_project/common/commons.dart';
 
@@ -85,12 +86,57 @@ class UIRepositoryImpl extends UIRepository {
       barrierDismissible: barrierDismissible,
       builder: (_) {
         return ConfirmDialog(
-            content: content,
-            titleSubmit: titleSubmit,
-            titleCancel: titleCancel,
-            onSubmit: onSubmit,
-            onCancel: onCancel);
+          content: content,
+          titleSubmit: titleSubmit,
+          titleCancel: titleCancel,
+          onSubmit: onSubmit,
+          onCancel: onCancel,
+        );
       },
     );
+  }
+
+  @override
+  void showSingleBtn(BuildContext context, String content,
+      VoidCallback onSubmit, bool barrierDismissible, String? titleSubmit) {
+    showDialog(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (_) {
+        return DialogSingleBtn(
+          content: content,
+          titleSubmit: titleSubmit,
+          onSubmit: onSubmit,
+          barrierDismissible: barrierDismissible,
+        );
+      },
+    );
+  }
+
+  @override
+  void showBtmSheet(BuildContext context, Widget? child, List<Widget>? children,
+      BoxConstraints? boxConstraints, Function? onCallBack) {
+    showModalBottomSheet(
+      context: context,
+      constraints: boxConstraints,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(18.r),
+          topRight: Radius.circular(18.r),
+        ),
+      ),
+      builder: (ctx) {
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
+          child: child ??
+              Column(mainAxisSize: MainAxisSize.min, children: children ?? []),
+        );
+      },
+    ).then((value) {
+      onCallBack?.call(value);
+    });
   }
 }

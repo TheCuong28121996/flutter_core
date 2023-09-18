@@ -5,4 +5,5 @@ class Strings{
   static const String notification = 'Thông báo';
   static const String close = 'Đóng';
   static const String confirm = 'Xác nhận';
+  static const String ok = 'Đồng ý';
 }

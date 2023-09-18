@@ -58,7 +58,7 @@ class Button extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           minimumSize: (height != null || width != null)
-              ? Size(width ?? 1.sw, height ?? 44.h)
+              ? Size(width ?? 1.sw, height ?? 40.h)
               : null,
           backgroundColor: disabled ? const Color(0xFFCFCAC6) : backgroundColor,
           shape: RoundedRectangleBorder(

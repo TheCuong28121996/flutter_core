@@ -11,11 +11,28 @@ abstract class UIRepository {
       bool barrierDismissible);
 
   void showConfirmDialog(
-      BuildContext context,
-      String content,
-      VoidCallback onSubmit,
-      bool barrierDismissible,
-      VoidCallback? onCancel,
-      String? titleSubmit,
-      String? titleCancel);
+    BuildContext context,
+    String content,
+    VoidCallback onSubmit,
+    bool barrierDismissible,
+    VoidCallback? onCancel,
+    String? titleSubmit,
+    String? titleCancel,
+  );
+
+  void showSingleBtn(
+    BuildContext context,
+    String content,
+    VoidCallback onSubmit,
+    bool barrierDismissible,
+    String? titleSubmit,
+  );
+
+  void showBtmSheet(
+    BuildContext context,
+    Widget? child,
+    List<Widget>? children,
+    BoxConstraints? boxConstraints,
+    Function? onCallBack,
+  );
 }

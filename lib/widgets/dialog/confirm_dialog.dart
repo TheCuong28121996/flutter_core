@@ -1,4 +1,3 @@
-import 'package:base_project/common/resource/res.dart';
 import 'package:base_project/res/res.dart';
 import 'package:base_project/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,6 @@ class ConfirmDialog extends StatelessWidget {
             Expanded(
               child: Button(
                 title: titleCancel ?? Strings.close,
-                height: 40.h,
                 onPressed: () {
                   Navigator.pop(context);
                   onCancel?.call();
@@ -49,7 +47,6 @@ class ConfirmDialog extends StatelessWidget {
                 title: titleSubmit ?? Strings.confirm,
                 colorText: Colors.white,
                 backgroundColor: AppColor.colorPrimary,
-                height: 40.h,
                 onPressed: () {
                   Navigator.pop(context);
                   onSubmit();
