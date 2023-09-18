@@ -1,4 +1,6 @@
 import 'package:base_project/common/commons.dart';
+import 'package:base_project/common/utils/ui/ui_repository.dart';
+import 'package:base_project/common/utils/ui/ui_repository_impl.dart';
 import 'package:base_project/config/app_env.dart';
 import 'package:base_project/data/repositories/repositories.dart';
 import 'package:base_project/data/services/services.dart';
@@ -26,6 +28,8 @@ Future<void> initializeDependencies() async {
 
   getIt.registerSingleton<AuthenticationRepository>(
       AuthenticationRepositoryImpl(service: getIt()));
+
+  getIt.registerSingleton<UIRepository>(UIRepositoryImpl());
 
   return getIt.allReady();
 }

@@ -1,6 +1,7 @@
 enum AppRoutes {
   home(""),
-  login('login');
+  login('login'),
+  navigation('navigation');
 
   const AppRoutes(String path) : _path = path;
   final String _path;

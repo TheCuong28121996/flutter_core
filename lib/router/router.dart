@@ -1,4 +1,5 @@
 import 'package:base_project/data/repositories/repositories.dart';
+import 'package:base_project/features/navigation/navigation_page.dart';
 import 'package:base_project/features/pages.dart';
 import 'package:base_project/injection/injection.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,13 @@ final appRouter = GoRouter(
           },
           child: const LoginPage(),
         );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.navigation.toPath(),
+      name: AppRoutes.navigation.toPath(),
+      builder: (ctx, state) {
+        return const NavigationPage();
       },
     ),
   ],

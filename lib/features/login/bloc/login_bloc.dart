@@ -20,6 +20,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       Emitter<LoginState> emit,) async {
     emit(const LoadingState(isShow: true));
 
+    await Future.delayed(const Duration(seconds: 3), (){
+      emit(const LoadingState(isShow: false));
+    });
+
     // try {
     //   await _authRepository.login(phoneNumber: phoneNumber, password: password)
     // } catch (error) {
