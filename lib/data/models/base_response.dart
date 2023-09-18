@@ -1,29 +1,42 @@
-import 'dart:io';
+import 'dart:convert';
+import 'package:base_project/common/commons.dart';
+import 'package:base_project/common/resource/res.dart';
 import 'package:dio/dio.dart';
 
 class BaseResponse<T> {
   BaseResponse({
     required this.success,
     required this.data,
-    required this.message,
+    required this.errorMessage,
+    this.headers,
   });
 
   final bool success;
-  final String message;
+  final String errorMessage;
   final T? data;
+  final Headers? headers;
 
-  factory BaseResponse.fromDioResponse(Response<T> response) {
-    if (response.statusCode == HttpStatus.ok ||
-        response.statusCode == HttpStatus.created) {
+  factory BaseResponse.fromDioResponse(Response response) {
+    try {
+      if (response.data is Map) {
+        return BaseResponse(
+          success: response.data['success'] ?? false,
+          errorMessage: response.data['errorMessage'] ?? '',
+          data: response.data['data'],
+        );
+      }
+
+      final dataMap = _decodeData(response);
       return BaseResponse(
-        success: true,
-        message: '',
-        data: response.data,
+        success: dataMap['success'] ?? false,
+        errorMessage: dataMap['errorMessage'] ?? '',
+        data: dataMap['data'],
       );
-    } else {
+    } catch (error) {
+      logger.e('Error creating BaseResponse from Dio response: $error');
       return BaseResponse(
         success: false,
-        message: response.statusMessage ?? '',
+        errorMessage: Strings.unknownError,
         data: null,
       );
     }
@@ -32,9 +45,32 @@ class BaseResponse<T> {
   factory BaseResponse.fromDioException(DioException e) {
     return BaseResponse(
       success: false,
-      message: getErrorMsg(e),
+      errorMessage: getErrorMsg(e),
       data: null,
     );
+  }
+
+  factory BaseResponse.fromDioRawResponse(Response response) {
+    return BaseResponse(
+        success: true,
+        errorMessage: response.statusMessage ?? '',
+        data: response.data,
+        headers: response.headers);
+  }
+
+  factory BaseResponse.fromDioRawException(DioException e) {
+    return BaseResponse(
+        success: false,
+        errorMessage: getErrorMsg(e),
+        headers: e.response?.headers,
+        data: null);
+  }
+
+  static Map<String, dynamic> _decodeData(Response response) {
+    if (response.data == null || response.data.toString().isEmpty) {
+      return {};
+    }
+    return json.decode(response.data.toString());
   }
 
   static String getErrorMsg(DioException exception) {

@@ -1,6 +1,7 @@
 import 'package:base_project/common/commons.dart';
 import 'package:base_project/config/app_env.dart';
-import 'package:base_project/data/data_source/data_sources.dart';
+import 'package:base_project/data/repositories/repositories.dart';
+import 'package:base_project/data/services/services.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,12 @@ Future<void> initializeDependencies() async {
             requestBody: AppEnv().environment != Constants.prodEnvironment,
             responseBody: AppEnv().environment != Constants.prodEnvironment)),
       instanceName: 'auth_client');
+
+  getIt.registerSingleton<AuthServiceRepository>(
+      AuthServiceRepositoryImpl(dio: getIt(instanceName: 'auth_client')));
+
+  getIt.registerSingleton<AuthenticationRepository>(
+      AuthenticationRepositoryImpl(service: getIt()));
 
   return getIt.allReady();
 }

@@ -7,9 +7,18 @@ sealed class LoginState extends Equatable {
   List<Object> get props => [];
 }
 
-final class LoginLoading extends LoginState {
+final class InitialState extends LoginState {
   @override
   List<Object> get props => [];
+}
+
+final class LoadingState extends LoginState {
+  const LoadingState({this.isShow = false});
+
+  final bool isShow;
+
+  @override
+  List<Object> get props => [isShow];
 }
 
 final class LoginSuccess extends LoginState {
