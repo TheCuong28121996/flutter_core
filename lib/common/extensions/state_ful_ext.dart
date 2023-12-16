@@ -1,6 +1,7 @@
-import 'package:base_project/common/utils/ui/ui_repository.dart';
 import 'package:base_project/injection/injection.dart';
 import 'package:flutter/material.dart';
+
+import '../../repositories/repositories.dart';
 
 extension StateFulExt<T extends StatefulWidget> on State<T> {
   static final UIRepository _uiRepository = getIt<UIRepository>();

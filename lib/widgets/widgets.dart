@@ -4,3 +4,5 @@ export 'base/button.dart';
 
 export 'dialog/confirm_dialog.dart';
 export 'dialog/single_button_dialog.dart';
+
+export 'other/version_widget.dart';
